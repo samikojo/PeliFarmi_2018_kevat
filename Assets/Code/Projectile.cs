@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
 	
 	// Ensimmäinen metodi, jonka Unity suorittaa oliolle, kun peli
 	// käynnistetään tai kun olio luodaan pelin aikana.
-	void Awake()
+	private void Awake()
 	{
 		// GetComponent hakee viittauksen siihen Rigidbody2D komponenttiin,
 		// joka on liitetty tähän GameObjectiin.
@@ -29,5 +29,12 @@ public class Projectile : MonoBehaviour
 	{
 		Vector2 velocity = direction.normalized * Speed;
 		rigidbody.velocity = velocity;
+	}
+	
+	// Kutsutaan automaattisesti törmäyksen sattuessa.
+	private void OnCollisionEnter2D( Collision2D collision )
+	{
+		// Tuhoaa sen GameObjectin, johon tämä komponentti on liitetty.
+		Destroy(gameObject);
 	}
 }
