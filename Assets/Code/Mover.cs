@@ -10,8 +10,8 @@ public class Mover : MonoBehaviour
 	
 	public void Move( Vector3 direction )
 	{
-		// Aluksen tämänhetkinen sijainti pelimaailmassa
-		Vector3 position = transform.position;
+        // Aluksen tämänhetkinen sijainti pelimaailmassa
+        Vector3 position = transform.position;
 		
 		// Normalisoidaan suuntavektori, jotta sitä voidaan käyttää
 		// laskuissa. Normalisoitu vektori on alkuperäisen vektorin
