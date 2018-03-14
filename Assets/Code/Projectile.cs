@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +34,24 @@ public class Projectile : MonoBehaviour
 	// Kutsutaan automaattisesti törmäyksen sattuessa.
 	private void OnCollisionEnter2D( Collision2D collision )
 	{
+        // Haetaan sen kohteen Health-komponentti, johon törmättiin.
+        Health health = collision.collider.gameObject.GetComponent<Health>();
+        if( health != null )
+        {
+            // Vähennetään törmäyksen kohteen hitpointeja Damage-muuttujaan
+            // tallennetun määrän verran.
+            if( health.DecreaseHealth(Damage) == false )
+            {
+                // DecreaseHealth palautti falsen. Alus tuhoutui.
+                // Haetaan viittaus SpaceShipiin
+                Spaceship ship = health.gameObject.GetComponent<Spaceship>();
+                if(ship != null)
+                {
+                    ship.Die();
+                }
+            }
+        }
+
 		// Tuhoaa sen GameObjectin, johon tämä komponentti on liitetty.
 		Destroy(gameObject);
 	}

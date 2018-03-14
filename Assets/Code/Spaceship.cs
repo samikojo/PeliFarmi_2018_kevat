@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +7,8 @@ using UnityEngine;
 
 // RequireComponent attribuutilla voidaan kertoa Unitylle, että Spaceship
 // on riippuvainen Mover-komponentista
-[RequireComponent(typeof(Mover))]
-public abstract class Spaceship : MonoBehaviour
+[RequireComponent(typeof(Mover), typeof(Health))]
+public abstract class Spaceship : MonoBehaviour, IDestroyable
 {
     // Jäsenmuuttuja, jonka tyyppi on Mover ja nimi mover.
     private Mover mover;
@@ -22,6 +22,15 @@ public abstract class Spaceship : MonoBehaviour
     protected Mover Mover
     {
         get { return mover; }
+        //set { mover = value; }
+    }
+
+    // Autoproperty. Kääntäjä generoi muuttujan, johon propertyn arvo
+    // tallennetaan, automaattisesti.
+    public Health HitPoints
+    {
+        get;
+        protected set;
     }
 
     // Protected-määritteellä metodi näkyy lapsiluokille
@@ -31,9 +40,25 @@ public abstract class Spaceship : MonoBehaviour
         // PlayerSpaceship-komponentti on kytketty.
         mover = GetComponent<Mover>();
 
+        // AddComponent lisää komponentin GameObjectille. 
+        // mover = gameObject.AddComponent<Mover>();
+
         // Haetaan viittaukset kaikkiin ase-olioihin, jotka on liitetty tähän
         // GameObjectiin ja sen lapsiin.
         weapons = GetComponentsInChildren<Weapon>();
+
+        // Haetaan viittaus Health-komponenttiin. Jos komponenttia ei 
+        // löydy, lisätään se.
+        HitPoints = GetComponent<Health>();
+        if (HitPoints == null)
+        {
+            // Health-komponenttia ei löytynyt, lisätään se. Koska komponentti
+            // ei ollut liitetty GameObjectiin, sille ei ole voitu asettaa
+            // järkeviä arvoja. Asetetaan ne tässä.
+            HitPoints = gameObject.AddComponent<Health>();
+            HitPoints.MaxHealth = 150;
+            HitPoints.StartingHealth = 100;
+        }
     }
 
     protected void Shoot()
@@ -46,5 +71,12 @@ public abstract class Spaceship : MonoBehaviour
             Weapon weapon = weapons[i];
             weapon.Shoot();
         }
+    }
+
+    // Suoritetaan aluksen tuhoutuessa.
+    public void Die()
+    {
+        // Aluksen tuhoutuessa asetetaan se inaktiiviseksi.
+        gameObject.SetActive(false);
     }
 }

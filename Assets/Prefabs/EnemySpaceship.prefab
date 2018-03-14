@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 58295939690291378}
   - component: {fileID: 114119962979291124}
   - component: {fileID: 114221734792764110}
+  - component: {fileID: 114673613266217288}
   m_Layer: 9
   m_Name: EnemySpaceship
   m_TagString: Untagged
@@ -187,6 +188,19 @@ MonoBehaviour:
   CooldownTime: 0.5
   ProjectilePrefab: {fileID: 114855160769447362, guid: 6805151d3e6005342b250850cba9c38e,
     type: 2}
+--- !u!114 &114673613266217288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1929009459202886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a799b702f908ce54e97bf7e95061b2d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingHealth: 50
+  MaxHealth: 50
 --- !u!212 &212351521584531352
 SpriteRenderer:
   m_ObjectHideFlags: 1
