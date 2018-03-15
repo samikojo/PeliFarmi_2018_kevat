@@ -1,11 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemySpaceship : Spaceship
 {
-    protected void Update()
-    {
-        Shoot();
-    }
+	private void Start()
+	{
+		// Vihollisalus tuhoutuu automaattisesti sekunnin kuluttua sen luomisesta.
+		Destroy(gameObject, 1f);
+	}
+
+	protected void Update()
+	{
+		Shoot();
+		// Move down
+		Mover.Move(transform.up * -1);
+	}
 }

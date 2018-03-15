@@ -1,4 +1,5 @@
-﻿// Interface määrittää luokan julkisen rajapinnan
+// Interface määrittää luokan julkisen rajapinnan
+
 public interface IDestroyable
 {
 	Health HitPoints { get; }
